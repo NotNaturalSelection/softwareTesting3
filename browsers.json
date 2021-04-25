@@ -1,0 +1,12 @@
+{
+  "firefox": {
+    "default": "87.0",
+    "versions": {
+      "87.0": {
+        "image": "/usr/share/firefox",
+        "port": "4444"
+      }
+    }
+  }
+
+}
