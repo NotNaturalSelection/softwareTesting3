@@ -65,6 +65,7 @@ public class BasicBrowserTest  {
     }
 
     public static void assertUrl(String expected) {
+        System.out.println(driver.getCurrentUrl());
         assert driver.getCurrentUrl().contains(expected);
     }
 }

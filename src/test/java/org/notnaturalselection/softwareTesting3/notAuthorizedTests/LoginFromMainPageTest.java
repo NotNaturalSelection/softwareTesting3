@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.notnaturalselection.softwareTesting3.BasicBrowserTest;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class LoginFromMainPageTest extends BasicBrowserTest {
@@ -31,13 +32,22 @@ public class LoginFromMainPageTest extends BasicBrowserTest {
     }
 
     @Test
-    public void login() {
+    public void login()
+            throws InterruptedException {
         mainPage.loginButton.click();
         loginPage.loginField.sendKeys("rtlbiathlon@gmail.com");
         loginPage.next.click();
         waitUntilVisible(loginPage.passwordField);
         waitUntilClickable(loginPage.passwordField);
-        loginPage.passwordField.sendKeys("ScAk9aFpI1");
+        loginPage.passwordField.sendKeys("ScAk9aFpI2");//wrong one
         loginPage.login.click();
+        TimeUnit.SECONDS.sleep(2);
+        assert ExpectedConditions.attributeContains(By.xpath("//input[@type='password']"), "class", "is-error").apply(driver);
+        loginPage.passwordField.clear();
+        loginPage.passwordField.sendKeys("ScAk9aFpI1");//right one
+        loginPage.login.click();
+        TimeUnit.SECONDS.sleep(5);
+        waitUntilDocumentIsLoaded();
+        assertUrl("wordpress.com/home");
     }
 }
